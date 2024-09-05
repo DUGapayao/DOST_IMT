@@ -159,7 +159,7 @@
                     
                         <div class="title-bottom">
                             <div class="page-identifier">
-                                <span>Library</span> / <span class="current-page">@yield('current-page')</span>
+                                @yield('current-page')
                             </div>
                     
                             <div class="add-container">

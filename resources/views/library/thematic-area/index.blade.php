@@ -2,7 +2,9 @@
 
 @section('title', 'DOST Thematic Area')
 
-@section('current-page', 'DOST Thematic Area')
+@section('current-page')
+    <span>Library</span> / <span class="current-page">DOST Thematic Area</span>
+@endsection
 
 @section('table-content')
     <table id="thematicTable" class="table-content">
