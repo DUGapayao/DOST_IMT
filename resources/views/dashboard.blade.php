@@ -89,7 +89,7 @@
                                             <div class="hyphen-container">
                                                 <div class="line-hyphen"></div>
                                             </div>
-                                            <li><a href="/login">DOST Agencies</a></li>
+                                            <li><a href="/agency">DOST Agencies</a></li>
                                         </div>
 
                                         <div class="list-indicators-container">
@@ -103,7 +103,7 @@
                                             <div class="hyphen-container">
                                                 <div class="line-hyphen"></div>
                                             </div>
-                                            <li><a href="/login">DOST Strategic Pillar</a></li>
+                                            <li><a href="/strategic-pillar">DOST Strategic Pillar</a></li>
                                         </div>
 
                                         <div class="list-thematic-container">
@@ -117,14 +117,14 @@
                                             <div class="hyphen-container">
                                                 <div class="line-hyphen"></div>
                                             </div>
-                                            <li><a href="/login">DOST Priority</a></li>
+                                            <li><a href="/priority">DOST Priority</a></li>
                                         </div>
 
                                         <div class="list-sdg-container">
                                             <div class="hyphen-container">
                                                 <div class="line-hyphen"></div>
                                             </div>
-                                            <li><a href="/login">SDG</a></li>
+                                            <li><a href="/sdg">SDG</a></li>
                                         </div>
 
                                         <div class="list-hnrda-container">
@@ -170,7 +170,7 @@
                     </div>
                     
                     <dialog id="add-dialog">
-                        <div class="dialog-container" style="height: 210px; width: 500px;">
+                        <div class="dialog-container" style="min-height: 230px; min-width: 500px; padding: 20px; position: relative;">
                             @yield('add-form')
                             <div style="text-align: right;">
                                 <button onclick="closeAddDialog()" class="button-cancel" style="margin-right: 18px;">CANCEL</button>

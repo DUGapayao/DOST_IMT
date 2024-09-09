@@ -1,13 +1,13 @@
 @extends('dashboard')
 
-@section('title', 'HARMONIZED NATIONAL RESEARCH AND DEVELOPMENT AGENDA (HNRDA)')
+@section('title', 'DOST Strategic Pillar')
 
 @section('current-page')
-    <span>Library</span> / <span class="current-page">HNRDA</span>
+    <span>Library</span> / <span class="current-page">DOST Strategic Pillar</span>
 @endsection
 
 @section('table-content')
-    <table id="HNRDATable" class="table-content">
+    <table id="strategicTable" class="table-content">
         <thead>
             <!-- Search Input Row -->
             <tr>
@@ -34,9 +34,9 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($allHnrda as $Hnrda)
-            <tr onclick="openEditDialog('{{ $Hnrda->title }}', '{{ route('hnrda.update', ['hnrda' => $Hnrda->id]) }}', '{{ route('hnrda.destroy', ['hnrda' => $Hnrda->id]) }}')">
-                <td>{{ $Hnrda->title }}</td>
+        @foreach($allStrategicPillar as $StrategicPillar)
+            <tr onclick="openEditDialog('{{ $StrategicPillar->Title }}', '{{ route('strategic-pillar.update', ['strategicPillar' => $StrategicPillar->id]) }}', '{{ route('strategic-pillar.destroy', ['strategicPillar' => $StrategicPillar->id]) }}')">
+                <td>{{ $StrategicPillar->Title }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -49,7 +49,7 @@
             <button onclick="closeEditDialog()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
     
             <!-- Header -->
-            <h3 style="margin-bottom: 20px;">EDIT HNRDA</h3>
+            <h3 style="margin-bottom: 20px;">EDIT STRATEGIC PILLAR</h3>
     
             <!-- Edit Form -->
             <form method="POST" action="" id="editForm">
@@ -57,7 +57,7 @@
                 @method('PUT')
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                     <label for="editTitle" style="flex-shrink: 0;">Title:</label>
-                    <input type="text" id="editTitle" name="title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <input type="text" id="editTitle" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                 </div>
             </form>
     
@@ -77,7 +77,7 @@
         let sortOrder = 1; // 1 for ascending, -1 for descending
 
         function sortTable(columnIndex) {
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("strategicTable");
             const tbody = table.tBodies[0];
             const rows = Array.from(tbody.rows);
 
@@ -118,7 +118,7 @@
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("strategicTable");
             const rows = table.getElementsByTagName("tr");
 
             for (let i = 3; i < rows.length; i++) { // Start at 3 to skip the search input row and header row
@@ -133,13 +133,13 @@
 @endsection
 
 @section('add-form')
-    <h3 style="margin-bottom: 20px;">Add New HNRDA</h3>
-    <!-- Form for adding a new thematic area -->
-    <form method="POST" action="{{ route('hnrda.store') }}" id="addForm" style="margin-bottom: 20px;">
+    <h3 style="margin-bottom: 20px;">Add New Strategic Pillar</h3>
+    <!-- Form for adding a new strategic pillar -->
+    <form method="POST" action="{{ route('strategic-pillar.store') }}" id="addForm" style="margin-bottom: 20px;">
         @csrf
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <label for="title" style="flex-shrink: 0;">Title:</label>
-            <input type="text" id="title" name="title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <input type="text" id="title" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
         </div>
     </form> 
 @endsection

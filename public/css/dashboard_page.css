@@ -331,7 +331,6 @@ dialog {
 
 .dialog-container {
     padding: 30px;
-    box-shadow: 0px 0px 10px #aaaaaa;
 }
 
 .button-add, .submit-user {
@@ -428,6 +427,20 @@ dialog {
 .submit-delete {
     background-color: #ff5757;
 }
+
+.truncate {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 320px; /* Adjust the width as needed */
+    min-width: 150px
+}
+
+.truncate:hover {
+    overflow: visible; 
+    white-space: normal;
+}
+
     
 /*
 .table-content tr:nth-child(odd){

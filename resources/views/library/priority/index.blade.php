@@ -1,13 +1,13 @@
 @extends('dashboard')
 
-@section('title', 'HARMONIZED NATIONAL RESEARCH AND DEVELOPMENT AGENDA (HNRDA)')
+@section('title', 'DOST Priority')
 
 @section('current-page')
-    <span>Library</span> / <span class="current-page">HNRDA</span>
+    <span>Library</span> / <span class="current-page">DOST Priority</span>
 @endsection
 
 @section('table-content')
-    <table id="HNRDATable" class="table-content">
+    <table id="PriorityTable" class="table-content">
         <thead>
             <!-- Search Input Row -->
             <tr>
@@ -34,9 +34,9 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($allHnrda as $Hnrda)
-            <tr onclick="openEditDialog('{{ $Hnrda->title }}', '{{ route('hnrda.update', ['hnrda' => $Hnrda->id]) }}', '{{ route('hnrda.destroy', ['hnrda' => $Hnrda->id]) }}')">
-                <td>{{ $Hnrda->title }}</td>
+        @foreach($allPriority as $Priority)
+            <tr onclick="openEditDialog('{{ $Priority->title }}', '{{ route('priority.update', ['priority' => $Priority->id]) }}', '{{ route('priority.destroy', ['priority' => $Priority->id]) }}')">
+                <td>{{ $Priority->title }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -49,7 +49,7 @@
             <button onclick="closeEditDialog()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
     
             <!-- Header -->
-            <h3 style="margin-bottom: 20px;">EDIT HNRDA</h3>
+            <h3 style="margin-bottom: 20px;">EDIT Priority</h3>
     
             <!-- Edit Form -->
             <form method="POST" action="" id="editForm">
@@ -77,7 +77,7 @@
         let sortOrder = 1; // 1 for ascending, -1 for descending
 
         function sortTable(columnIndex) {
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("PriorityTable");
             const tbody = table.tBodies[0];
             const rows = Array.from(tbody.rows);
 
@@ -118,7 +118,7 @@
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("PriorityTable");
             const rows = table.getElementsByTagName("tr");
 
             for (let i = 3; i < rows.length; i++) { // Start at 3 to skip the search input row and header row
@@ -133,9 +133,9 @@
 @endsection
 
 @section('add-form')
-    <h3 style="margin-bottom: 20px;">Add New HNRDA</h3>
-    <!-- Form for adding a new thematic area -->
-    <form method="POST" action="{{ route('hnrda.store') }}" id="addForm" style="margin-bottom: 20px;">
+    <h3 style="margin-bottom: 20px;">Add New Priority</h3>
+    <!-- Form for adding a new priority -->
+    <form method="POST" action="{{ route('priority.store') }}" id="addForm" style="margin-bottom: 20px;">
         @csrf
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <label for="title" style="flex-shrink: 0;">Title:</label>

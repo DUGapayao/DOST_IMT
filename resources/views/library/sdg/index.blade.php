@@ -1,17 +1,17 @@
 @extends('dashboard')
 
-@section('title', 'HARMONIZED NATIONAL RESEARCH AND DEVELOPMENT AGENDA (HNRDA)')
+@section('title', 'Sustainable Development Goals (SDG)')
 
 @section('current-page')
-    <span>Library</span> / <span class="current-page">HNRDA</span>
+    <span>Library</span> / <span class="current-page">SDG</span>
 @endsection
 
 @section('table-content')
-    <table id="HNRDATable" class="table-content">
+    <table id="SDGTable" class="table-content">
         <thead>
             <!-- Search Input Row -->
             <tr>
-                <th colspan="2">
+                <th colspan="3">
                     <div style="text-align: right; padding-bottom: 10px; position: relative;">
                         <input type="text" id="searchInput" onkeyup="filterTable()" 
                                placeholder="Search..." title="Type in a title" 
@@ -21,7 +21,7 @@
             </tr>
             <!-- Black Line Row -->
             <tr>
-                <th colspan="2" style="border-bottom: 2px solid rgb(138, 138, 138); padding: 0;"></th>
+                <th colspan="3" style="border-bottom: 2px solid rgb(138, 138, 138); padding: 0;"></th>
             </tr>
             <!-- Table Headers -->
             <tr>
@@ -31,12 +31,14 @@
                         TITLE:
                     </span>
                 </th>
+                <th>DESCRIPTION:</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($allHnrda as $Hnrda)
-            <tr onclick="openEditDialog('{{ $Hnrda->title }}', '{{ route('hnrda.update', ['hnrda' => $Hnrda->id]) }}', '{{ route('hnrda.destroy', ['hnrda' => $Hnrda->id]) }}')">
-                <td>{{ $Hnrda->title }}</td>
+        @foreach($allSdg as $Sdg)
+            <tr onclick="openEditDialog('{{ $Sdg->Title }}', '{{ $Sdg->Description }}', '{{ route('sdg.update', ['sdg' => $Sdg->id]) }}', '{{ route('sdg.destroy', ['sdg' => $Sdg->id]) }}')">
+                <td>{{ $Sdg->Title }}</td>
+                <td>{{ $Sdg->Description }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -49,24 +51,34 @@
             <button onclick="closeEditDialog()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
     
             <!-- Header -->
-            <h3 style="margin-bottom: 20px;">EDIT HNRDA</h3>
+            <h3 style="margin-bottom: 20px;">EDIT SDG</h3>
     
             <!-- Edit Form -->
             <form method="POST" action="" id="editForm">
                 @csrf
                 @method('PUT')
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                    <label for="editTitle" style="flex-shrink: 0;">Title:</label>
-                    <input type="text" id="editTitle" name="title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <!-- Title Field -->
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="editTitle" style="flex-shrink: 0; width: 100px;">Title:</label>
+                        <input type="text" id="editTitle" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
+
+                    <!-- Description Field -->
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="editDescription" style="flex-shrink: 0; width: 100px;">Description:</label>
+                        <textarea id="editDescription" name="Description" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                    </div>
                 </div>
             </form>
+
     
             <!-- Delete Form -->
             <form method="POST" action="" id="deleteForm" style="display: inline;">
                 @csrf
                 @method('DELETE')
                 <div style="text-align: right;">
-                    <button type="submit" class="button-cancel" style="margin-right: 10px;">Delete</button>
+                    <button type="submit" class="button-cancel" style="margin-right: 10px; margin-top: 15px;">Delete</button>
                     <button type="submit" form="editForm" class="button-add">Save</button>
                 </div> 
             </form> 
@@ -77,7 +89,7 @@
         let sortOrder = 1; // 1 for ascending, -1 for descending
 
         function sortTable(columnIndex) {
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("SDGTable");
             const tbody = table.tBodies[0];
             const rows = Array.from(tbody.rows);
 
@@ -104,8 +116,9 @@
             }
         }
 
-        function openEditDialog(title, updateUrl, deleteUrl) {
+        function openEditDialog(title, description, updateUrl, deleteUrl) {
             document.getElementById('editTitle').value = title;
+            document.getElementById('editDescription').value = description;
             document.getElementById('editForm').action = updateUrl;
             document.getElementById('deleteForm').action = deleteUrl;
             document.getElementById('edit-dialog').showModal();
@@ -118,7 +131,7 @@
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
-            const table = document.getElementById("HNRDATable");
+            const table = document.getElementById("SDGTable");
             const rows = table.getElementsByTagName("tr");
 
             for (let i = 3; i < rows.length; i++) { // Start at 3 to skip the search input row and header row
@@ -133,13 +146,23 @@
 @endsection
 
 @section('add-form')
-    <h3 style="margin-bottom: 20px;">Add New HNRDA</h3>
-    <!-- Form for adding a new thematic area -->
-    <form method="POST" action="{{ route('hnrda.store') }}" id="addForm" style="margin-bottom: 20px;">
+    <h3 style="margin-bottom: 20px;">Add New SDG</h3>
+    <!-- Form for adding a new SDG -->
+    <form method="POST" action="{{ route('sdg.store') }}" id="addForm" style="margin-bottom: 20px;">
         @csrf
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-            <label for="title" style="flex-shrink: 0;">Title:</label>
-            <input type="text" id="title" name="title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- Title Field -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label for="editTitle" style="flex-shrink: 0; width: 100px;">Title:</label>
+                <input type="text" id="editTitle" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+
+            <!-- Description Field -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label for="editDescription" style="flex-shrink: 0; width: 100px;">Description:</label>
+                <textarea id="editDescription" name="Description" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+            </div>
         </div>
     </form> 
 @endsection
+

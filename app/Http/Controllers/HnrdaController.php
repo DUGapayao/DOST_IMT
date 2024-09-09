@@ -13,21 +13,13 @@ class HnrdaController extends Controller
         return view('library.hnrda.index', ['allHnrda' => $allHnrda]);
     }
 
-    public function create() {
-        return view('library.hnrda.create');
-    }
-
     public function store(Request $request) {
         $data = $request->validate([
             'title' => 'required'
         ]);
 
-        $newHnrda = Hnrda::create($data);
-        return redirect(route('hnrda.index'));
-    }
-
-    public function edit(Hnrda $hnrda){
-        return view('library.hnrda.edit', ['hnrda' => $hnrda]);
+        Hnrda::create($data);
+        return redirect()->route('hnrda.index');
     }
 
     public function update(Hnrda $hnrda, Request $request){
@@ -42,6 +34,6 @@ class HnrdaController extends Controller
 
     public function destroy(Hnrda $hnrda){
         $hnrda->delete();
-        return redirect(route('hnrda.index'));
+        return redirect()->route('hnrda.index');
     }
 }
