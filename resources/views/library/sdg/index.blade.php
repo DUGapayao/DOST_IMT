@@ -12,26 +12,22 @@
             <!-- Search Input Row -->
             <tr>
                 <th colspan="3">
-                    <div style="text-align: right; padding-bottom: 10px; position: relative;">
+                    <div class="search-container">
                         <input type="text" id="searchInput" onkeyup="filterTable()" 
                                placeholder="Search..." title="Type in a title" 
-                               style="width: 200px; padding-right: 30px; background: url('{{ asset('image/search.png') }}') no-repeat right 5px center; background-size: 15px; background-color: white; color: #333; border: 1px solid #ccc; border-radius: 4px;">
+                               class="search-input">
                     </div>
                 </th>                             
             </tr>
-            <!-- Black Line Row -->
-            <tr>
-                <th colspan="3" style="border-bottom: 2px solid rgb(138, 138, 138); padding: 0;"></th>
-            </tr>
             <!-- Table Headers -->
             <tr>
-                <th onclick="sortTable(0)" style="cursor: pointer;">
+                <th onclick="sortTable(0)" class="sortable-column">
                     <span id="sortIcon">
-                        <img id="sortIconImage" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" style="width: 18px; height: 18px; vertical-align: middle;">
-                        TITLE:
+                        <img id="sortIconImage" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" class="sort-icon">
+                        TITLE
                     </span>
                 </th>
-                <th>DESCRIPTION:</th>
+                <th>DESCRIPTION</th>
             </tr>
         </thead>
         <tbody>
@@ -45,44 +41,41 @@
     </table>
 
     <!-- Edit/Delete Modal -->
-    <dialog id="edit-dialog">
-        <div class="dialog-container" style="width: 400px; padding: 20px; position: relative;">
-            <!-- 'X' Button -->
-            <button onclick="closeEditDialog()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+    <dialog id="edit-dialog" class="dialog-container">
+        <!-- 'X' Button -->
+        <button onclick="closeEditDialog()" class="x-button">&times;</button>
     
-            <!-- Header -->
-            <h3 style="margin-bottom: 20px;">EDIT SDG</h3>
+        <!-- Header -->
+        <h3 class="dialog-title">SDG</h3>
     
-            <!-- Edit Form -->
-            <form method="POST" action="" id="editForm">
-                @csrf
-                @method('PUT')
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <!-- Title Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editTitle" style="flex-shrink: 0; width: 100px;">Title:</label>
-                        <input type="text" id="editTitle" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                    </div>
-
-                    <!-- Description Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editDescription" style="flex-shrink: 0; width: 100px;">Description:</label>
-                        <textarea id="editDescription" name="Description" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
-                    </div>
+        <!-- Edit Form -->
+        <form method="POST" action="" id="editForm">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <!-- Title Field -->
+                <div class="form-field">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" name="Title" required>
                 </div>
-            </form>
 
+                <!-- Description Field -->
+                <div class="form-field">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" name="Description" required></textarea>
+                </div>
+            </div>
+        </form>
     
-            <!-- Delete Form -->
-            <form method="POST" action="" id="deleteForm" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <div style="text-align: right;">
-                    <button type="submit" class="button-cancel" style="margin-right: 10px; margin-top: 15px;">Delete</button>
-                    <button type="submit" form="editForm" class="button-add">Save</button>
-                </div> 
-            </form> 
-        </div>
+        <!-- Delete Form -->
+        <form method="POST" action="" id="deleteForm" class="delete-form">
+            @csrf
+            @method('DELETE')
+            <div class="dialog-footer">
+                <button type="submit" class="button-cancel">Delete</button>
+                <button type="submit" form="editForm" class="button-add">Save</button>
+            </div> 
+        </form> 
     </dialog>
 
     <script>
@@ -146,23 +139,24 @@
 @endsection
 
 @section('add-form')
-    <h3 style="margin-bottom: 20px;">Add New SDG</h3>
+    <!-- 'X' Button -->
+    <button onclick="closeAddDialog()" class="x-button">&times;</button>
+    <h3 class="dialog-title">SDG</h3>
     <!-- Form for adding a new SDG -->
-    <form method="POST" action="{{ route('sdg.store') }}" id="addForm" style="margin-bottom: 20px;">
+    <form method="POST" action="{{ route('sdg.store') }}" id="addForm" class="dialog-form">
         @csrf
-        <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div class="form-group">
             <!-- Title Field -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="editTitle" style="flex-shrink: 0; width: 100px;">Title:</label>
-                <input type="text" id="editTitle" name="Title" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <div class="form-field">
+                <label for="addTitle">Title</label>
+                <input type="text" id="addTitle" name="Title" required>
             </div>
 
             <!-- Description Field -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="editDescription" style="flex-shrink: 0; width: 100px;">Description:</label>
-                <textarea id="editDescription" name="Description" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+            <div class="form-field">
+                <label for="addDescription">Description</label>
+                <textarea id="addDescription" name="Description" required></textarea>
             </div>
         </div>
     </form> 
 @endsection
-

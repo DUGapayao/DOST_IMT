@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" >
         <link rel="stylesheet" href="{{ asset('css/dashboard_page.css') }}">
 
+
         <script defer src="{{ asset('js/dashboard.js') }}"></script>
         <title>DOST-IMT</title>
     </head>
@@ -170,15 +171,15 @@
                     </div>
                     
                     <dialog id="add-dialog">
-                        <div class="dialog-container" style="min-height: 230px; min-width: 500px; padding: 20px; position: relative;">
+                        <div class="dialog-container">
                             @yield('add-form')
-                            <div style="text-align: right;">
-                                <button onclick="closeAddDialog()" class="button-cancel" style="margin-right: 18px;">CANCEL</button>
+                            <div class="dialog-footer">
+                                <button onclick="closeAddDialog()" class="button-cancel">CANCEL</button>
                                 <button type="submit" form="addForm" class="button-add">SAVE</button>
-                            </div>    
+                            </div>
                         </div>
                     </dialog>
-                    
+                                        
                     <div class="table-container">
                         <table class="table-content">
                             @yield('table-content')

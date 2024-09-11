@@ -330,8 +330,49 @@ dialog {
 }
 
 .dialog-container {
-    padding: 30px;
+    min-height: 230px;
+    min-width: 500px;
+    padding: 20px; /* Changed padding to 20px as specified */
 }
+
+.dialog-footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.dialog-title {
+    margin-bottom: 20px;
+}
+
+.dialog-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column; /* Stack label above input */
+    gap: 5px; /* Adjust spacing between label and input */
+}
+
+.form-field label {
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.form-field input,
+.form-field select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Ensure the input/select takes the full width of the container */
+}
+
+
 
 .button-add, .submit-user {
     /* Remove default styling */
@@ -368,8 +409,22 @@ dialog {
     cursor: pointer;
     outline: none;
     box-sizing: border-box;
+    margin-right: 10px; 
+    margin-top: 15px;
 }
 
+.x-button {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    background: none; 
+    border: none; 
+    font-size: 20px; 
+    cursor: pointer;
+}
+
+
+/* General table styling */
 .table-content {
     width: 100%;
     border-collapse: collapse;
@@ -385,8 +440,22 @@ dialog {
 .table-content th {
     background-color: #f4f4f4; /* Light grey background for table headers */
     text-align: left;
+    cursor: pointer; /* Add pointer cursor for sortable columns */
 }
 
+/* Flexbox for header content */
+.sort-header {
+    display: flex;
+    align-items: center;  /* Align icon and text vertically */
+    gap: 8px; /* Adds space between icon and text */
+}
+
+.sort-header img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Styling for even and odd rows */
 .table-content tr:nth-child(even) {
     background-color: rgba(177, 178, 181, 0.2); 
 }
@@ -395,9 +464,22 @@ dialog {
     background-color: rgb(255, 255, 255); /* White for odd rows */
 }
 
+/* Hover effect for rows */
 .table-content tr:hover {
     background-color: rgb(200, 200, 200); /* Slightly darker grey for hover effect */
     cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Sortable column styling */
+.sortable-column {
+    cursor: pointer; /* Add pointer cursor for sortable columns */
+}
+
+/* Icon styling */
+.sort-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
 }
 
 
@@ -441,9 +523,50 @@ dialog {
     white-space: normal;
 }
 
-    
-/*
-.table-content tr:nth-child(odd){
-    background-color: lightgray;
+/* Flexbox container for search and filter */
+.search-and-filter {
+    display: flex;
+    justify-content: space-between; /* Filter icon on the left and search on the right */
+    align-items: center; /* Vertically center the elements */
+    width: 100%; /* Full width for the container */
+    padding: 10px 0; /* Add some vertical padding */
 }
-*/
+
+/* Filter icon container on the left */
+.filter-icon-container {
+    margin-left: 0; /* Ensure it's aligned to the far left */
+}
+
+/* Filter icon */
+.filter-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.filter-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Search input container on the right */
+.search-container {
+    text-align: right;
+    position: relative;
+}
+
+/* Search input field */
+#searchInput {
+    width: 200px;
+    padding-right: 30px;
+    background: url('/image/search.png') no-repeat right 5px center;
+    background-size: 15px;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Align the search and filter vertically */
+th.search-and-filter {
+    vertical-align: middle;
+}

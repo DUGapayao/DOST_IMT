@@ -1,58 +1,60 @@
 @extends('dashboard')
 
-@section('title', 'DOST Agencies')
+@section('title', 'Agencies')
 
 @section('current-page')
-    <span>Library</span> / <span class="current-page">DOST Agencies</span>
+    <span>Library</span> / <span class="current-page">Agencies</span>
 @endsection
 
 @section('table-content')
     <table id="agencyTable" class="table-content">
         <thead>
-            <!-- Search Input Row -->
+            <!-- Search and Filter Input Row -->
             <tr>
                 <th colspan="5">
-                    <div style="text-align: right; padding-bottom: 10px; position: relative;">
-                        <input type="text" id="searchInput" onkeyup="filterTable()" 
-                               placeholder="Search..." title="Type in a title" 
-                               style="width: 200px; padding-right: 30px; background: url('{{ asset('image/search.png') }}') no-repeat right 5px center; background-size: 15px; background-color: white; color: #333; border: 1px solid #ccc; border-radius: 4px;">
+                    <div class="search-and-filter">
+                        <!-- Filter Icon on the left -->
+                        <div class="filter-icon-container">
+                            <img src="{{ asset('image/filter.png') }}" alt="Filter Icon" class="filter-icon" onclick="openFilterDialog()">
+                            Filter
+                        </div>
+                        <!-- Search Input on the right -->
+                        <div class="search-container">
+                            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search..." title="Type in a title">
+                        </div>
                     </div>
                 </th>
             </tr>
-            <!-- Black Line Row -->
-            <tr>
-                <th colspan="5" style="border-bottom: 2px solid rgb(138, 138, 138); padding: 0;"></th>
-            </tr>
             <!-- Table Headers -->
             <tr>
-                <th onclick="sortTable(0)" style="cursor: pointer;">
-                    <span id="sortIconAgencies">
-                        <img id="sortIconImage" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" style="width: 18px; height: 18px; vertical-align: middle;">
-                        AGENCIES:
+                <th onclick="sortTable(0)" class="sortable-column">
+                    <span id="sortIconAgencies" class="sort-header">
+                        <img id="sortIconImage" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" class="sort-icon">
+                        NAME OF AGENCY
                     </span>
                 </th>
-                <th onclick="sortTable(1)" style="cursor: pointer;">
-                    <span id="sortIconAcronym">
-                        <img id="sortIconImageAcronym" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" style="width: 18px; height: 18px; vertical-align: middle;">
-                        ACRONYM:
+                <th onclick="sortTable(1)" class="sortable-column">
+                    <span id="sortIconAcronym" class="sort-header">
+                        <img id="sortIconImageAcronym" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" class="sort-icon">
+                        ALIAS
                     </span>
                 </th>
-                <th onclick="sortTable(2)" style="cursor: pointer;">
-                    <span id="sortIconAgencyGroup">
-                        <img id="sortIconImageAgencyGroup" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" style="width: 18px; height: 18px; vertical-align: middle;">
-                        AGENCY GROUP:
+                <th onclick="sortTable(2)" class="sortable-column">
+                    <span id="sortIconAgencyGroup" class="sort-header">
+                        <img id="sortIconImageAgencyGroup" src="{{ asset('image/up-and-down-arrow.png') }}" alt="Sort Icon" class="sort-icon">
+                        GROUP
                     </span>
                 </th>
-                <th>CONTACT:</th>
-                <th>WEBSITE:</th>
-            </tr>
+                <th>CONTACT DETAILS</th>
+                <th>AGENCY OFFICIAL WEBSITE LINK</th>
+            </tr>                      
         </thead>
         <tbody>
             @foreach($allAgencies as $Agency)
             <tr onclick="openEditDialog('{{ $Agency->Agencies }}', '{{ $Agency->Acronym }}', '{{ $Agency->Agency_Group }}', '{{ $Agency->Contact }}', '{{ $Agency->Website }}', '{{ route('agency.update', ['agency' => $Agency->id]) }}', '{{ route('agency.destroy', ['agency' => $Agency->id]) }}')">
                 <td class="truncate" title="{{ $Agency->Agencies }}">{{ $Agency->Agencies }}</td>
                 <td>{{ $Agency->Acronym }}</td>
-                <td>{{ $Agency->Agency_Group }}</td>
+                <td class="truncate">{{ $Agency->Agency_Group }}</td>
                 <td>{{ $Agency->Contact }}</td>
                 <td>{{ $Agency->Website }}</td>
             </tr>            
@@ -62,46 +64,51 @@
 
     <!-- Edit/Delete Modal -->
     <dialog id="edit-dialog">
-        <div class="dialog-container" style="width: 400px; padding: 20px; position: relative;">
+        <div class="dialog-container">
             <!-- 'X' Button -->
-            <button onclick="closeEditDialog()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+            <button class="x-button" onclick="closeEditDialog()">&times;</button>
     
             <!-- Header -->
-            <h3 style="margin-bottom: 20px;">EDIT AGENCY</h3>
+            <h3 class="dialog-title">AGENCY</h3>
     
             <!-- Edit Form -->
             <form method="POST" action="" id="editForm">
                 @csrf
                 @method('PUT')
-                <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="form-group">
                     <!-- Agencies Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editAgencies" style="flex-shrink: 0; width: 100px;">Agencies:</label>
-                        <input type="text" id="editAgencies" name="Agencies" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div class="form-field">
+                        <label for="editAgencies">Name of Agency</label>
+                        <input type="text" id="editAgencies" name="Agencies">
                     </div>
-
+            
                     <!-- Acronym Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editAcronym" style="flex-shrink: 0; width: 100px;">Acronym:</label>
-                        <input type="text" id="editAcronym" name="Acronym" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div class="form-field">
+                        <label for="editAcronym">Alias (short name)</label>
+                        <input type="text" id="editAcronym" name="Acronym" required>
                     </div>
-
+            
                     <!-- Agency Group Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editAgencyGroup" style="flex-shrink: 0; width: 100px;">Group:</label>
-                        <input type="text" id="editAgencyGroup" name="Agency_Group" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                    </div>
-                    
+                    <div class="form-field">
+                        <label for="editAgencyGroup">Group</label>
+                        <select id="editAgencyGroup" name="Agency_Group" required>
+                            <option value="" disabled selected>Select Group</option>
+                            <option value="Advisory Bodies">Advisory Bodies</option>
+                            <option value="Scientific and Technological Service Institutes">Scientific and Technological Service Institutes</option>
+                            <option value="Research and Development Institute">Research and Development Institute</option>
+                            <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
+                        </select>
+                    </div>                    
                     <!-- Contact Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editContact" style="flex-shrink: 0; width: 100px;">Contact:</label>
-                        <input type="text" id="editContact" name="Contact" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div class="form-field">
+                        <label for="editContact">Contact Details</label>
+                        <input type="text" id="editContact" name="Contact" required>
                     </div>
-
+            
                     <!-- Website Field -->
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <label for="editWebsite" style="flex-shrink: 0; width: 100px;">Website:</label>
-                        <input type="text" id="editWebsite" name="Website" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div class="form-field">
+                        <label for="editWebsite">Agency Official Website Link</label>
+                        <input type="text" id="editWebsite" name="Website" required>
                     </div>
                 </div>
             </form>
@@ -110,13 +117,42 @@
             <form method="POST" action="" id="deleteForm" style="display: inline;">
                 @csrf
                 @method('DELETE')
-                <div style="text-align: right;">
-                    <button type="submit" class="button-cancel" style="margin-right: 10px; margin-top: 15px;">Delete</button>
+                <div class="dialog-footer">
+                    <button type="submit" class="button-cancel">Delete</button>
                     <button type="submit" form="editForm" class="button-add">Save</button>
                 </div> 
             </form> 
         </div>
     </dialog>
+
+    <!-- Filter Modal -->
+    <dialog id="filter-dialog">
+        <div class="dialog-container">
+            <!-- 'X' Button -->
+            <button class="x-button" onclick="closeFilterDialog()">&times;</button>
+
+            <!-- Header -->
+            <h3 class="dialog-title">Filter By:</h3>
+
+            <!-- Filter Form -->
+            <div class="filter-form">
+                <div class="form-field">
+                    <label for="filterAgencyGroup">Group</label>
+                    <select id="filterAgencyGroup">
+                        <option value="">All Group</option>
+                        <option value="Advisory Bodies">Advisory Bodies</option>
+                        <option value="Scientific and Technological Service Institutes">Scientific and Technological Service Institutes</option>
+                        <option value="Research and Development Institute">Research and Development Institute</option>
+                        <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
+                    </select>
+                </div>
+                <div class="dialog-footer">
+                    <button type="button" class="button-add" onclick="applyFilter()">Apply Filter</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
 
     <script>
         let sortOrder = 1;
@@ -168,7 +204,7 @@
         function closeEditDialog() {
             document.getElementById('edit-dialog').close();
         }
-
+    
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
@@ -190,33 +226,74 @@
                 }
             }
         }
+
+        function openFilterDialog() {
+            document.getElementById('filter-dialog').showModal();
+        }
+
+        function closeFilterDialog() {
+            document.getElementById('filter-dialog').close();
+        }
+
+        function applyFilter() {
+            const selectedGroup = document.getElementById('filterAgencyGroup').value.toUpperCase();
+            const table = document.getElementById("agencyTable");
+            const rows = table.getElementsByTagName("tr");
+
+            // Loop through the table rows starting from the row after the headers and search/filter row
+            for (let i = 2; i < rows.length; i++) { // Start at 2 to skip header and search/filter rows
+                const cells = rows[i].getElementsByTagName("td");
+                if (cells.length > 0) {
+                    const groupCell = cells[2].textContent || cells[2].innerText;
+
+                    // Show row if the selected group is empty (i.e., "All Group") or matches the group cell
+                    const showRow = selectedGroup === "" || groupCell.toUpperCase() === selectedGroup;
+                    rows[i].style.display = showRow ? "" : "none";
+                }
+            }
+
+            closeFilterDialog(); // Close the modal after applying the filter
+        }
+
+
     </script>
 @endsection
 
 @section('add-form')
-    <h3 style="margin-bottom: 20px;">Add New DOST Agency</h3>
-    <form method="POST" action="{{ route('agency.store') }}" id="addForm" style="margin-bottom: 20px;">
+    <!-- 'X' Button -->
+    <button class="x-button" onclick="closeAddDialog()">&times;</button>
+    
+    <h3 class="dialog-title">Agency</h3>
+    
+    <form method="POST" action="{{ route('agency.store') }}" id="addForm" class="dialog-form">
         @csrf
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="Agencies" style="flex-shrink: 0; width: 100px;">Agencies:</label>
-                <input type="text" id="Agencies" name="Agencies" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <div class="form-group">
+            <div class="form-field">
+                <label for="Agencies">Name of Agency</label>
+                <input type="text" id="Agencies" name="Agencies" required>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="Acronym" style="flex-shrink: 0; width: 100px;">Acronym:</label>
-                <input type="text" id="Acronym" name="Acronym" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <div class="form-field">
+                <label for="Acronym">Alias (short name)</label>
+                <input type="text" id="Acronym" name="Acronym" required>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="AgencyGroup" style="flex-shrink: 0; width: 100px;">Group:</label>
-                <input type="text" id="Agency_Group" name="Agency_Group" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-            </div>            
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="Contact" style="flex-shrink: 0; width: 100px;">Contact:</label>
-                <input type="text" id="Contact" name="Contact" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <div class="form-field">
+                <label for="Agency_Group">Group</label>
+                <select id="Agency_Group" name="Agency_Group" required>
+                    <option value="" disabled selected>Select Group</option>
+                    <option value="Advisory Bodies">Advisory Bodies</option>
+                    <option value="Scientific and Technological Service Institutes">Scientific and Technological Service Institutes</option>
+                    <option value="Research and Development Institute">Research and Development Institute</option>
+                    <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
+                </select>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="Website" style="flex-shrink: 0; width: 100px;">Website:</label>
-                <input type="text" id="Website" name="Website" required style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+
+            <div class="form-field">
+                <label for="Contact">Contact Details</label>
+                <input type="text" id="Contact" name="Contact" required>
+            </div>
+            <div class="form-field">
+                <label for="Website">Agency Official Website Link</label>
+                <input type="text" id="Website" name="Website" required>
             </div>
         </div>
     </form>
