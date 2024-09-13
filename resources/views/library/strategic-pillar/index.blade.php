@@ -9,6 +9,10 @@
 @section('table-content')
     <table id="strategicTable" class="table-content">
         <thead>
+            <!-- Blue Row -->
+            <tr class="head-color">
+                <th colspan="5" class="head-color">&nbsp;</th> <!-- Empty cells, spans all columns -->
+            </tr>
             <!-- Search Input Row -->
             <tr>
                 <th colspan="2">
@@ -39,21 +43,25 @@
 
     <!-- Edit/Delete Modal -->
     <dialog id="edit-dialog" class="dialog-container">
-        <!-- 'X' Button -->
-        <button onclick="closeEditDialog()" class="x-button">&times;</button>
 
-        <!-- Header -->
-        <h3 class="dialog-title">Strategic Pillar</h3>
+        <div class="dialog-header">
+            <!-- Header -->
+            <h3 class="dialog-title">Strategic Pillar</h3>
+            <!-- 'X' Button -->
+            <button onclick="closeEditDialog()" class="x-button">&times;</button>
+        </div>
 
-        <!-- Edit Form -->
-        <form method="POST" action="" id="editForm">
-            @csrf
-            @method('PUT')
-            <div class="form-field">
-                <label for="editTitle">Title</label>
-                <input type="text" id="editTitle" name="Title" required>
-            </div>
-        </form>
+        <div class="dialog-content">
+            <!-- Edit Form -->
+            <form method="POST" action="" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="form-field">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" name="Title" required>
+                </div>
+            </form>
+        </div>
 
         <!-- Delete Form -->
         <form method="POST" action="" id="deleteForm">
@@ -119,15 +127,21 @@
 @endsection
 
 @section('add-form')
-    <!-- 'X' Button -->
-    <button onclick="closeAddDialog()" class="x-button">&times;</button>
-    <h3 class="dialog-title">Strategic Pillar</h3>
-
-    <form method="POST" action="{{ route('strategic-pillar.store') }}" id="addForm" class="dialog-form">
-        @csrf
-        <div class="form-field">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="Title" required>
+    <!-- Add Form -->
+    <div id="add-dialog" class="dialog-container">
+        <div class="dialog-header">
+            <h3 class="dialog-title">Strategic Pillar</h3>
+            <!-- 'X' Button -->
+            <button onclick="closeAddDialog()" class="x-button">&times;</button>
         </div>
-    </form> 
+        <div class="dialog-content">
+            <form method="POST" action="{{ route('strategic-pillar.store') }}" id="addForm" class="dialog-form">
+                @csrf
+                <div class="form-field">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="Title" required>
+                </div>
+            </form> 
+        </div>
+    </div>
 @endsection

@@ -9,6 +9,10 @@
 @section('table-content')
     <table id="thematicTable" class="table-content">
         <thead>
+            <!-- Blue Row -->
+            <tr class="head-color">
+                <th colspan="5" class="head-color">&nbsp;</th> <!-- Empty cells, spans all columns -->
+            </tr>
             <!-- Search Input Row -->
             <tr>
                 <th colspan="2">
@@ -40,31 +44,35 @@
 
     <!-- Edit/Delete Modal -->
     <dialog id="edit-dialog" class="dialog-container">
-        <!-- 'X' Button -->
-        <button onclick="closeEditDialog()" class="x-button">&times;</button>
+        <div class="dialog-header">  
+            <!-- Header -->
+            <h3 class="dialog-title">Thematic Area</h3>
+            <!-- 'X' Button -->
+            <button onclick="closeEditDialog()" class="x-button">&times;</button>
+        </div>
+
+        <div class="dialog-content">
+            <!-- Edit Form -->
+            <form method="POST" action="" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="form-field">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" name="Title" required>
+                </div>
+            </form>
+        </div>
     
-        <!-- Header -->
-        <h3 class="dialog-title">Thematic Area</h3>
-    
-        <!-- Edit Form -->
-        <form method="POST" action="" id="editForm">
-            @csrf
-            @method('PUT')
-            <div class="form-field">
-                <label for="editTitle">Title</label>
-                <input type="text" id="editTitle" name="Title" required>
-            </div>
-        </form>
-    
-        <!-- Delete Form -->
-        <form method="POST" action="" id="deleteForm">
-            @csrf
-            @method('DELETE')
-            <div class="dialog-footer">
-                <button type="submit" class="button-cancel">Delete</button>
-                <button type="submit" form="editForm" class="button-add">Save</button>
-            </div> 
-        </form> 
+        <div class="dialog-footer">
+            <!-- Delete Form -->
+            <form method="POST" action="" id="deleteForm">
+                @csrf
+                @method('DELETE')
+                <div class="dialog-footer">
+                    <button type="submit" class="button-cancel">Delete</button>
+                    <button type="submit" form="editForm" class="button-add">Save</button>
+                </div> 
+            </form> 
     </dialog>
 
     <script>
@@ -127,15 +135,23 @@
 @endsection
 
 @section('add-form')
-    <!-- 'X' Button -->
-    <button onclick="closeAddDialog()" class="x-button">&times;</button>
-    <h3 class="dialog-title">Thematic Area</h3>
-    <!-- Form for adding a new thematic area -->
-    <form method="POST" action="{{ route('thematic-area.store') }}" id="addForm" class="dialog-form">
-        @csrf
-        <div class="form-field">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="Title" required>
-        </div>
-    </form> 
+<!-- Add Form -->
+<div id="add-dialog" class="dialog-container">
+    <div class="dialog-header">
+        <h3 class="dialog-title">Thematic Area</h3>
+        <!-- 'X' Button -->
+        <button onclick="closeAddDialog()" class="x-button">&times;</button>
+    </div>
+
+    <div class="dialog-content">
+        <!-- Form for adding a new thematic area -->
+        <form method="POST" action="{{ route('thematic-area.store') }}" id="addForm" class="dialog-form">
+            @csrf
+            <div class="form-field">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="Title" required>
+            </div>
+        </form> 
+    </div>
+</div>
 @endsection

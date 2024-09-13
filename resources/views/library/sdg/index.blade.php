@@ -9,6 +9,10 @@
 @section('table-content')
     <table id="SDGTable" class="table-content">
         <thead>
+            <!-- Blue Row -->
+            <tr class="head-color">
+                <th colspan="5" class="head-color">&nbsp;</th> <!-- Empty cells, spans all columns -->
+            </tr>
             <!-- Search Input Row -->
             <tr>
                 <th colspan="3">
@@ -42,30 +46,32 @@
 
     <!-- Edit/Delete Modal -->
     <dialog id="edit-dialog" class="dialog-container">
-        <!-- 'X' Button -->
-        <button onclick="closeEditDialog()" class="x-button">&times;</button>
-    
-        <!-- Header -->
-        <h3 class="dialog-title">SDG</h3>
-    
-        <!-- Edit Form -->
-        <form method="POST" action="" id="editForm">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <!-- Title Field -->
-                <div class="form-field">
-                    <label for="editTitle">Title</label>
-                    <input type="text" id="editTitle" name="Title" required>
-                </div>
 
-                <!-- Description Field -->
-                <div class="form-field">
-                    <label for="editDescription">Description</label>
-                    <textarea id="editDescription" name="Description" required></textarea>
+        <div class="dialog-header">
+            <h3 class="dialog-title">SDG</h3>
+            <button class="x-button" onclick="closeEditDialog()">&times;</button>
+        </div>
+
+        <div class="dialog-content">
+            <!-- Edit Form -->
+            <form method="POST" action="" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <!-- Title Field -->
+                    <div class="form-field">
+                        <label for="editTitle">Title</label>
+                        <input type="text" id="editTitle" name="Title" required>
+                    </div>
+
+                    <!-- Description Field -->
+                    <div class="form-field">
+                        <label for="editDescription">Description</label>
+                        <textarea id="editDescription" name="Description" required></textarea>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     
         <!-- Delete Form -->
         <form method="POST" action="" id="deleteForm" class="delete-form">
@@ -139,24 +145,28 @@
 @endsection
 
 @section('add-form')
-    <!-- 'X' Button -->
-    <button onclick="closeAddDialog()" class="x-button">&times;</button>
-    <h3 class="dialog-title">SDG</h3>
-    <!-- Form for adding a new SDG -->
-    <form method="POST" action="{{ route('sdg.store') }}" id="addForm" class="dialog-form">
-        @csrf
-        <div class="form-group">
-            <!-- Title Field -->
-            <div class="form-field">
-                <label for="addTitle">Title</label>
-                <input type="text" id="addTitle" name="Title" required>
-            </div>
-
-            <!-- Description Field -->
-            <div class="form-field">
-                <label for="addDescription">Description</label>
-                <textarea id="addDescription" name="Description" required></textarea>
-            </div>
+    <!-- Add Form -->
+    <div id="add-dialog" class="dialog-container">
+        <div class="dialog-header">
+            <h3 class="dialog-title">SDG</h3>
+            <button onclick="closeAddDialog()" class="x-button">&times;</button>
         </div>
-    </form> 
+        <div class="dialog-content">
+            <form method="POST" action="{{ route('sdg.store') }}" id="addForm">
+                @csrf
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="addTitle">Title</label>
+                        <input type="text" id="addTitle" name="Title" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="addDescription">Description</label>
+                        <textarea id="addDescription" name="Description" required></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
+

@@ -9,6 +9,10 @@
 @section('table-content')
     <table id="HNRDATable" class="table-content">
         <thead>
+            <!-- Blue Row -->
+            <tr class="head-color">
+                <th colspan="5" class="head-color">&nbsp;</th> <!-- Empty cells, spans all columns -->
+            </tr>
             <!-- Search Input Row -->
             <tr>
                 <th colspan="2">
@@ -39,31 +43,57 @@
 
     <!-- Edit/Delete Modal -->
     <dialog id="edit-dialog" class="dialog-container">
-        <!-- 'X' Button -->
-        <button onclick="closeEditDialog()" class="x-button">&times;</button>
-
         <!-- Header -->
-        <h3 class="dialog-title">HNRDA</h3>
+        <div class="dialog-header">
+            <h3 class="dialog-title">Edit HNRDA</h3>
+            <button onclick="closeEditDialog()" class="x-button">&times;</button>
+        </div>
 
-        <!-- Edit Form -->
-        <form method="POST" action="" id="editForm">
-            @csrf
-            @method('PUT')
-            <div class="form-field">
-                <label for="editTitle">Title</label>
-                <input type="text" id="editTitle" name="title" required>
-            </div>
-        </form>
+        <!-- Content -->
+        <div class="dialog-content">
+            <!-- Edit Form -->
+            <form method="POST" action="" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="form-field">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" name="title" required>
+                </div>
+            </form>
 
-        <!-- Delete Form -->
-        <form method="POST" action="" id="deleteForm">
-            @csrf
-            @method('DELETE')
-            <div class="dialog-footer">
-                <button type="submit" class="button-cancel">Delete</button>
-                <button type="submit" form="editForm" class="button-add">Save</button>
-            </div> 
-        </form> 
+            <!-- Delete Form -->
+            <form method="POST" action="" id="deleteForm">
+                @csrf
+                @method('DELETE')
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="dialog-footer">
+            <button type="submit" form="deleteForm" class="button-cancel">Delete</button>
+            <button type="submit" form="editForm" class="button-add">Save</button>
+        </div>
+    </dialog>
+
+    <!-- Add Modal -->
+    <dialog id="add-dialog" class="dialog-container">
+        <!-- Header -->
+        <div class="dialog-header">
+            <h3 class="dialog-title">Add HNRDA</h3>
+            <button onclick="closeAddDialog()" class="x-button">&times;</button>
+        </div>
+
+        <!-- Content -->
+        <div class="dialog-content">
+            <!-- Add Form -->
+            <form method="POST" action="{{ route('hnrda.store') }}" id="addForm">
+                @csrf
+                <div class="form-field">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+            </form>
+        </div>
     </dialog>
 
     <script>
@@ -101,6 +131,14 @@
             document.getElementById('edit-dialog').close();
         }
 
+        function openAddDialog() {
+            document.getElementById('add-dialog').showModal();
+        }
+
+        function closeAddDialog() {
+            document.getElementById('add-dialog').close();
+        }
+
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
@@ -119,15 +157,21 @@
 @endsection
 
 @section('add-form')
-    <!-- 'X' Button -->
-    <button onclick="closeAddDialog()" class="x-button">&times;</button>
-    <h3 class="dialog-title">HNRDA</h3>
-
-    <form method="POST" action="{{ route('hnrda.store') }}" id="addForm" class="dialog-form">
-        @csrf
-        <div class="form-field">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" required>
+    <!-- Add Form -->
+    <div id="add-dialog" class="dialog-container">
+        <div class="dialog-header">
+            <h3 class="dialog-title">HNRDA</h3>
+            <button onclick="closeAddDialog()" class="x-button">&times;</button>
         </div>
-    </form> 
+        <div class="dialog-content">
+            <form method="POST" action="{{ route('hnrda.store') }}" id="addForm" class="dialog-form">
+                @csrf
+                <div class="form-field">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+            </form>
+        </div>
+    </div>
+             
 @endsection

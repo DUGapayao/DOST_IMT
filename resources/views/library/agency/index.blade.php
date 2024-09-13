@@ -9,6 +9,10 @@
 @section('table-content')
     <table id="agencyTable" class="table-content">
         <thead>
+            <!-- Blue Row -->
+            <tr class="head-color">
+                <th colspan="5" class="head-color">&nbsp;</th> <!-- Empty cells, spans all columns -->
+            </tr>
             <!-- Search and Filter Input Row -->
             <tr>
                 <th colspan="5">
@@ -63,14 +67,15 @@
     </table>
 
     <!-- Edit/Delete Modal -->
-    <dialog id="edit-dialog">
-        <div class="dialog-container">
-            <!-- 'X' Button -->
+    <dialog id="edit-dialog" class="dialog-container">
+        <!-- Header -->
+        <div class="dialog-header">
+            <h3 class="dialog-title">Edit Agency</h3>
             <button class="x-button" onclick="closeEditDialog()">&times;</button>
-    
-            <!-- Header -->
-            <h3 class="dialog-title">AGENCY</h3>
-    
+        </div>
+
+        <!-- Content -->
+        <div class="dialog-content">
             <!-- Edit Form -->
             <form method="POST" action="" id="editForm">
                 @csrf
@@ -81,13 +86,13 @@
                         <label for="editAgencies">Name of Agency</label>
                         <input type="text" id="editAgencies" name="Agencies">
                     </div>
-            
+
                     <!-- Acronym Field -->
                     <div class="form-field">
                         <label for="editAcronym">Alias (short name)</label>
                         <input type="text" id="editAcronym" name="Acronym" required>
                     </div>
-            
+
                     <!-- Agency Group Field -->
                     <div class="form-field">
                         <label for="editAgencyGroup">Group</label>
@@ -104,7 +109,7 @@
                         <label for="editContact">Contact Details</label>
                         <input type="text" id="editContact" name="Contact" required>
                     </div>
-            
+
                     <!-- Website Field -->
                     <div class="form-field">
                         <label for="editWebsite">Agency Official Website Link</label>
@@ -112,30 +117,32 @@
                     </div>
                 </div>
             </form>
+        </div>
 
-            <!-- Delete Form -->
+        <!-- Delete Form -->
+        <div class="dialog-footer">
             <form method="POST" action="" id="deleteForm" style="display: inline;">
                 @csrf
                 @method('DELETE')
-                <div class="dialog-footer">
                     <button type="submit" class="button-cancel">Delete</button>
                     <button type="submit" form="editForm" class="button-add">Save</button>
-                </div> 
-            </form> 
-        </div>
+            </form>
+        </div>  
+
     </dialog>
 
     <!-- Filter Modal -->
-    <dialog id="filter-dialog">
-        <div class="dialog-container">
-            <!-- 'X' Button -->
-            <button class="x-button" onclick="closeFilterDialog()">&times;</button>
-
-            <!-- Header -->
+    <dialog id="filter-dialog" class="dialog-container">
+        <!-- Header -->
+        <div class="dialog-header">
             <h3 class="dialog-title">Filter By:</h3>
+            <button class="x-button" onclick="closeFilterDialog()">&times;</button>
+        </div>
 
+        <!-- Content -->
+        <div class="dialog-content">
             <!-- Filter Form -->
-            <div class="filter-form">
+            <div class="form-group">
                 <div class="form-field">
                     <label for="filterAgencyGroup">Group</label>
                     <select id="filterAgencyGroup">
@@ -146,11 +153,13 @@
                         <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
                     </select>
                 </div>
-                <div class="dialog-footer">
-                    <button type="button" class="button-add" onclick="applyFilter()">Apply Filter</button>
-                </div>
             </div>
         </div>
+        
+        <div class="dialog-footer">
+            <button type="button" class="button-add" onclick="applyFilter()">Apply Filter</button>
+        </div>
+
     </dialog>
 
 
@@ -260,41 +269,53 @@
 @endsection
 
 @section('add-form')
-    <!-- 'X' Button -->
-    <button class="x-button" onclick="closeAddDialog()">&times;</button>
-    
-    <h3 class="dialog-title">Agency</h3>
-    
-    <form method="POST" action="{{ route('agency.store') }}" id="addForm" class="dialog-form">
-        @csrf
-        <div class="form-group">
-            <div class="form-field">
-                <label for="Agencies">Name of Agency</label>
-                <input type="text" id="Agencies" name="Agencies" required>
-            </div>
-            <div class="form-field">
-                <label for="Acronym">Alias (short name)</label>
-                <input type="text" id="Acronym" name="Acronym" required>
-            </div>
-            <div class="form-field">
-                <label for="Agency_Group">Group</label>
-                <select id="Agency_Group" name="Agency_Group" required>
-                    <option value="" disabled selected>Select Group</option>
-                    <option value="Advisory Bodies">Advisory Bodies</option>
-                    <option value="Scientific and Technological Service Institutes">Scientific and Technological Service Institutes</option>
-                    <option value="Research and Development Institute">Research and Development Institute</option>
-                    <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
-                </select>
-            </div>
+    <!-- Modal Header -->
+    <div class="dialog-header">
+        <h3 class="dialog-title">Add Agency</h3>
+        <button class="x-button" onclick="closeAddDialog()">&times;</button>
+    </div>
 
-            <div class="form-field">
-                <label for="Contact">Contact Details</label>
-                <input type="text" id="Contact" name="Contact" required>
+    <!-- Modal Content -->
+    <div class="dialog-content">
+        <form method="POST" action="{{ route('agency.store') }}" id="addForm" class="dialog-form">
+            @csrf
+            <div class="form-group">
+                <!-- Name of Agency Field -->
+                <div class="form-field">
+                    <label for="Agencies">Name of Agency</label>
+                    <input type="text" id="Agencies" name="Agencies" required>
+                </div>
+
+                <!-- Alias (Short Name) Field -->
+                <div class="form-field">
+                    <label for="Acronym">Alias (short name)</label>
+                    <input type="text" id="Acronym" name="Acronym" required>
+                </div>
+
+                <!-- Group Field -->
+                <div class="form-field">
+                    <label for="Agency_Group">Group</label>
+                    <select id="Agency_Group" name="Agency_Group" required>
+                        <option value="" disabled selected>Select Group</option>
+                        <option value="Advisory Bodies">Advisory Bodies</option>
+                        <option value="Scientific and Technological Service Institutes">Scientific and Technological Service Institutes</option>
+                        <option value="Research and Development Institute">Research and Development Institute</option>
+                        <option value="Sectoral Planning Councils">Sectoral Planning Councils</option>
+                    </select>
+                </div>
+
+                <!-- Contact Details Field -->
+                <div class="form-field">
+                    <label for="Contact">Contact Details</label>
+                    <input type="text" id="Contact" name="Contact" required>
+                </div>
+
+                <!-- Official Website Link Field -->
+                <div class="form-field">
+                    <label for="Website">Agency Official Website Link</label>
+                    <input type="text" id="Website" name="Website" required>
+                </div>
             </div>
-            <div class="form-field">
-                <label for="Website">Agency Official Website Link</label>
-                <input type="text" id="Website" name="Website" required>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 @endsection
