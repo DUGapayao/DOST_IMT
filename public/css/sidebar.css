@@ -59,6 +59,13 @@ a {
     width: 100%;
 }
 
+.list-terms-container {
+    display: flex;
+    height: 3.5vh;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
 .list-dashboard-container.active {
     border-radius: 3px;
     background-color: rgb(233, 233, 233);
@@ -80,12 +87,26 @@ a {
     margin: 0;
 }
 
+.terms-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    margin: 0;
+}
+
 .svg-dashboard, .svg-indicators, .svg-library {
     height: 85%;
     width: auto;
 }
 
 .action-dashboard-container {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+.action-terms-container {
     display: flex;
     align-items: center;
     width: 80%;
@@ -170,3 +191,4 @@ a {
     width: 100%;
     height: 100%;
 }
+

@@ -11,6 +11,7 @@ use App\Http\Controllers\SdgController;
 use App\Http\Controllers\StrategicPillarController;
 use App\Http\Controllers\ThematicAreaController;
 use App\Http\Controllers\PrimaryIndicatorController;
+use App\Http\Controllers\TermsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -75,6 +76,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/areas', [ThematicAreaController::class, 'store'])->name('areas.store');
     Route::put('/areas/{id}/update', [ThematicAreaController::class, 'update'])->name('areas.update');
     Route::delete('/areas/{id}/delete', [ThematicAreaController::class, 'destroy'])->name('areas.destroy');
+    
+    Route::get('/terms', [TermsController::class, 'index'])->name('terms.index');
 });
 
 require __DIR__.'/auth.php';

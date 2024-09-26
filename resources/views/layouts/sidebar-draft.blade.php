@@ -84,6 +84,15 @@
                         @endforeach
                     </ul>
                 </div>
+                <!-- Terms and Conditions -->
+                <div class="list-terms-container {{ request()->is('terms-conditions') ? 'active' : '' }}">
+                    <div class="terms-icon-container">
+                        @include('svg.terms-icon')
+                    </div>
+                    <div class="action-terms-container">
+                        <li><a href="/terms">Terms and Conditions</a></li>
+                    </div>
+                </div>
             </ul>
         </nav>
     </div>
