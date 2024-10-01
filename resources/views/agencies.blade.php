@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-title-page>DOST Agencies</x-title-page>
+    <x-title-page>Agencies</x-title-page>
 
     <x-horizontal-line></x-horizontal-line>
 
@@ -55,7 +55,7 @@
         </div>
         <div>
             <button class="manage-button" id="openCreateDialog">
-                <span>Add DOST Agency</span>
+                <span>Add Agency</span>
             </button>
         </div>
     </div>
@@ -64,10 +64,10 @@
         <thead>
             <tr>
                 <th>Agency</th>
-                <th>Acronym</th>
-                <th>Agency Group</th>
-                <th>Contact</th>
-                <th>Website</th>
+                <th>Alias (short name)</th>
+                <th>Alias</th>
+                <th>Contact Details</th>
+                <th>Agency Official Website</th>
             </tr>
         </thead>
         <tbody>
@@ -93,7 +93,7 @@
     <dialog id="createDialog">
         <div class="modal-content" id="modal-content-id">
             <div class="modal-header">
-                <span>Add DOST Agency</span>
+                <span>Add Agency</span>
                 <div class="close-icon-container" onclick="closeDialog('createDialog')">@include('svg.close-icon')</div>
             </div>
             <form method="POST" action="{{ route('agencies.store') }}" id="createForm">
@@ -106,7 +106,7 @@
                         </div>
 
                         <div>
-                            <label for="acronym">Acronym</label>
+                            <label for="acronym">Alias (short name)</label>
                             <input type="text" id="acronym" class="input-layout" name="acronym">
                         </div>
 
@@ -121,12 +121,12 @@
                         </div>
 
                         <div>
-                            <label for="contact">Contact</label>
+                            <label for="contact">Contact Details</label>
                             <input type="text" id="contact" class="input-layout" name="contact">
                         </div>
 
                         <div>
-                            <label for="website">Website</label>
+                            <label for="website">Agency Official Website</label>
                             <input type="text" id="website" class="input-layout" name="website">
                         </div>
                     </div>
@@ -143,7 +143,7 @@
     <dialog id="editDialog">
         <div class="modal-content" id="modal-content-id">
             <div class="modal-header">
-                <span>Update DOST Agency</span>
+                <span>Update Agency</span>
                 <div class="close-icon-container" onclick="closeDialog('editDialog')">@include('svg.close-icon')</div>
             </div>
             <form method="POST" id="editForm">

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-title-page>DOST Priority</x-title-page>
+    <x-title-page>Priority</x-title-page>
 
     <x-horizontal-line></x-horizontal-line>
 
@@ -15,7 +15,7 @@
         <div>
             <button class="manage-button" id="openCreateDialog">
                 @include('svg.gear-icon')
-                <span>Add DOST Priority</span>
+                <span>Add Priority</span>
             </button>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <dialog id="createDialog">
         <div class="modal-content" id="modal-content-id">
             <div class="modal-header">
-                <span>Add DOST Priority</span>
+                <span>Add Priority</span>
                 <div class="close-icon-container" onclick="closeDialog('createDialog')">@include('svg.close-icon')</div>
             </div>
             <form method="POST" action="{{ route('priorities.store') }}" id="createForm">
@@ -66,7 +66,7 @@
     <dialog id="editDialog">
         <div class="modal-content" id="modal-content-id">
             <div class="modal-header">
-                <span>Update DOST Priority</span>
+                <span>Update Priority</span>
                 <div class="close-icon-container" onclick="closeDialog('editDialog')">@include('svg.close-icon')</div>
             </div>
             <form method="POST" id="editForm">

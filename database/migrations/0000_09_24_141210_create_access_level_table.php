@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('access_levels', function (Blueprint $table) {
             $table->id();
-            $table->string('title', '20');
+            $table->string('title', '20')->default(6);
             $table->timestamps();
         });
 

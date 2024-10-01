@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
         <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/terms-privacy.css') }}">
 
         <script defer src="{{ asset('js/app.js') }}"></script>
 

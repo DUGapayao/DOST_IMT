@@ -67,11 +67,11 @@
                 @php
                     $libraryContent = [
                         'Users' => '/users',
-                        'DOST Agencies' => '/agencies',
+                        'Agencies' => '/agencies',
                         'Indicators' => '/indicators',
-                        'DOST Strategic Pillar' => '/pillars',
-                        'DOST Thematic Area' => '/areas',
-                        'DOST Priority' => '/priorities',
+                        'Strategic Pillar' => '/pillars',
+                        'Thematic Area' => '/areas',
+                        'Priority' => '/priorities',
                         'SDG' => '/sdgs',
                         'HNRDA' => '/hnrdas',
                     ];
@@ -89,6 +89,12 @@
                         @endforeach
                     </ul>
                 </div>
+                
+                <div class="footer-container">
+                    <p>
+                        Copyright 2024 DOST. All rights reserved | <a href="/terms" class="action-terms-container">Terms and Conditions</a>
+                    </p>
+                </div>                
             </ul>
         </nav>
     </div>

@@ -1,0 +1,72 @@
+.terms-container {
+    padding: 20px;
+    font-size: 12px;
+    max-width: 1100px;
+    margin: 0;
+    margin-left: 50px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+
+    /* Add border only at the top */
+    border-top: 0.5px solid #ccc; /* You can customize the color and thickness */
+}
+
+.terms-body-content {
+    margin-bottom: 30px;
+}
+
+.intro-paragraph {
+    margin-bottom: 20px;
+}
+
+.terms-container h4 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.terms-container p {
+    margin-bottom: 20px;
+}
+
+.terms-footer-container {
+    margin-top: 40px;
+}
+
+.action-privacy-container {
+    color: #007BFF;
+    display: inline;
+}
+
+.action-privacy-container:hover {
+    text-decoration: underline;
+}
+
+.privacy-container {
+    padding: 20px;
+    font-size: 12px;
+    max-width: 1100px;
+    margin: 0;
+    margin-left: 50px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+.privacy-body-content {
+    margin-bottom: 30px;
+}
+
+.privacy-container h4 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.privacy-container p {
+    margin-bottom: 20px;
+}
+
+.privacy-footer-container {
+    margin-top: 40px;
+}
+

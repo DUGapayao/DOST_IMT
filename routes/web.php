@@ -11,6 +11,8 @@ use App\Http\Controllers\SdgController;
 use App\Http\Controllers\StrategicPillarController;
 use App\Http\Controllers\ThematicAreaController;
 use App\Http\Controllers\PrimaryIndicatorController;
+use App\Http\Controllers\TermsController;
+use App\Http\Controllers\PrivacyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -92,6 +94,10 @@ Route::middleware('auth')->group(function () {
         session(['library_dropdown_open' => $request->input('open')]);
         return response()->json(['status' => 'success']);
     })->name('store.library.dropdown.state');
+
+    Route::get('/terms', [TermsController::class, 'index'])->name('terms.index');
+
+    Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy.index');
 });
 
 require __DIR__.'/auth.php';

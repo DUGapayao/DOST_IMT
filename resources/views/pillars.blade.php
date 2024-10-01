@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-title-page>DOST Strategic Pillar</x-title-page>
+    <x-title-page>Strategic Pillar</x-title-page>
 
     <x-horizontal-line></x-horizontal-line>
 
@@ -15,7 +15,7 @@
         <div>
             <button class="manage-button" id="openCreateDialog">
                 @include('svg.gear-icon')
-                <span>Add DOST Strategic Pillar</span>
+                <span>Add Strategic Pillar</span>
             </button>
         </div>
     </div>
