@@ -19,9 +19,13 @@
             @include('svg.notif-icon')
         </div>
 
-        <div class="vline-container">
-            <div class="vertical-line"></div>
+        <div class="help-container">
+            <a href="/faqs">
+                @include('svg.question-mark')
+            </a>
         </div>
+
+        
 
         <div class="profile-container">
             <button class="button-profile" onclick="toggleProfileDropdown()">

@@ -209,3 +209,110 @@ a {
 .action-terms-container:hover {
     text-decoration: underline;
 }
+
+.button-faqs {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.list-faqs-container {
+    display: flex;
+    height: 3.5vh;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.list-faqs-container.active {
+    border-radius: 3px;
+    background-color: rgb(233, 233, 233);
+}
+
+.action-faqs-container {
+    display: flex;
+    align-items: center;
+    color: black;
+    width: 75%;
+}
+
+.subfaqs-container {
+    display: none;
+}
+
+.faqs-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    margin: 0;
+}
+
+
+.button-online-help {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.list-online-help-container {
+    display: flex;
+    height: 3.5vh;
+    width: 100%;
+}
+
+.list-online-help-container.active {
+    border-radius: 3px;
+    background-color: rgb(233, 233, 233);
+}
+
+.action-online-help-container {
+    display: flex;
+    align-items: center;
+    color: black;
+    width: 75%;
+}
+
+.subhelp-container {
+    display: none;
+}
+
+.online-help-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    margin: 0;
+}
+
+.list-about-container {
+    display: flex;
+    height: 3.5vh;
+    width: 100%;
+}
+
+.list-about-container.active {
+    border-radius: 3px;
+    background-color: rgb(233, 233, 233);
+}
+
+.action-about-container {
+    display: flex;
+    align-items: center;
+    color: black;
+    width: 75%;
+}
+

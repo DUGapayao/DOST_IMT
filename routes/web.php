@@ -13,6 +13,9 @@ use App\Http\Controllers\ThematicAreaController;
 use App\Http\Controllers\PrimaryIndicatorController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\HelpController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -95,9 +98,27 @@ Route::middleware('auth')->group(function () {
         return response()->json(['status' => 'success']);
     })->name('store.library.dropdown.state');
 
+    Route::post('/store-faqs-dropdown-state', function (Illuminate\Http\Request $request) {
+        session(['faqs_dropdown_open' => $request->input('open')]);
+        return response()->json(['status' => 'success']);
+    })->name('store.faqs.dropdown.state');
+
+
+    Route::post('/store-help-dropdown-state', function (Illuminate\Http\Request $request) {
+        session(['help_dropdown_open' => $request->input('open')]);
+        return response()->json(['status' => 'success']);
+    })->name('store.help.dropdown.state');
+
+
     Route::get('/terms', [TermsController::class, 'index'])->name('terms.index');
 
     Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy.index');
+
+    Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
+    Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs.index');
+
+    Route::get('/online-help', [HelpController::class, 'index'])->name('online-help.index');
 });
 
 require __DIR__.'/auth.php';
