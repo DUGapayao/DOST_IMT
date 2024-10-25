@@ -1,0 +1,41 @@
+<a href="{{ route('notifications') }}" class="notification-icon" id="notificationIcon"> 
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" class="svg-notif">
+        <path d="M10.7333 23.7939C10.9565 24.1592 11.2846 24.4638 11.6833 24.6759C12.082 24.8881 12.5368 25 13 25C13.4632 25 13.918 24.8881 14.3167 24.6759C14.7154 24.4638 15.0435 24.1592 15.2667 23.7939M5 8.19808C5 6.28903 5.84286 4.45817 7.34315 3.10827C8.84344 1.75837 10.8783 1 13 1C15.1217 1 17.1566 1.75837 18.6569 3.10827C20.1571 4.45817 21 6.28903 21 8.19808C21 16.5958 25 18.9952 25 18.9952H1C1 18.9952 5 16.5958 5 8.19808Z" 
+        stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="badge" id="notificationCount" style="display: {{ auth()->user()->unreadNotifications->count() > 0 ? 'inline' : 'none' }}">
+        {{ auth()->user()->unreadNotifications->count() > 0 ? auth()->user()->unreadNotifications->count() : '' }}
+    </span>
+</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#notificationIcon').on('click', function(event) {
+            event.preventDefault(); 
+
+            // AJAX request to mark notifications as read
+            $.ajax({
+                url: "{{ route('notifications.markAllAsRead') }}", 
+                type: 'PUT',
+                data: {
+                    _token: "{{ csrf_token() }}" 
+                },
+                success: function(response) {
+                    
+                    $('#notificationCount').text('');
+                    $('#notificationCount').hide();
+
+                    window.location.href = "{{ route('notifications') }}";
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error marking notifications as read:', error);
+                    alert('There was an error. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+
+
+
